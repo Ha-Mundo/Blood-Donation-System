@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <h1>Donation Page</h1>
+    <form action="/blood_donation" method='post', class='ui form' style='width: 50%;'>
+        <br>
+        Name:<br>
+        <input type="text" name="name">
+        <br>
+        Age:<br>
+        <input type="text" name="age">
+       
+        <br>
+        blood groups :<br>
+        <select name="blood_groups" method="GET" action="/">
+            <option value="{{ blood_groups[0]}}" selected>{{ blood_groups[0]}}</option>
+            {% for  blood_group in  blood_groups[1:] %}
+            <option value="{{ blood_group}}">{{ blood_group}}</option>
+            {% endfor %}
+        </select>
+        <br>
+         City:<br>
+        <input type="text" name="city">
+        <br>
+         Phone Number:<br>
+        <input type="text" name="phone_no">
+        <br><br>
+        <input type="submit" value="Submit">
+    </form>     
+</div>
+{% endblock %}

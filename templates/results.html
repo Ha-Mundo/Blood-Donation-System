@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<div class="container">
+    <h1>Available Blood Donations</h1>
+    <table style="width:100% padding-top: 50px" class="ui celled table">
+  <tr>
+    <th>Name</th>
+    <th>Age</th> 
+    <th>Blood Groups</th>
+    <th>City</th>
+    <th>Phone Number</th>
+    <th>Take</th>
+  </tr>
+  
+
+    {% for blood_donation in blood_donations %}
+                <tr>
+                    <td>{{ blood_donation.name }}</td>
+                    <td>{{ blood_donation.age }} </td>
+                    <td>{{ blood_donation.blood_groups }}</td>
+                    <td>{{ blood_donation.city }}</td>
+                    <td>
+                        <a href="tel:{{ blood_donation.phone_no }}">
+                            {{ blood_donation.phone_no }}
+                        </a>
+                    </td>
+                    <td><a href="/take_donation?id={{ blood_donation.id }}">
+                            <button class="ui button">
+                                Take 
+                            </button>
+                        </a>
+                    </td>
+                </tr>
+    {% endfor %}
+    </table>
+
+</div>
+{% endblock %}
