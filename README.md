@@ -8,4 +8,4 @@ Requirements:
 3- Create a database with the comand python create_db.py. 
 4- Run the application with the comand python app.py
 
-ps: I hope to speed up the blood donation process.
+
