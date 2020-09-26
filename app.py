@@ -1,7 +1,7 @@
 """
 TODO 
 Add a home button for every page
-If the database is empty, show sorry no food available! in the receive page
+If the database is empty, show sorry no blood donanation available! in the receive page
 Disable donate button according the threshold(3 Months)
 """
 
