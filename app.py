@@ -1,7 +1,7 @@
 """
 TODO 
 Add a home button for every page
-If the database is empty, show sorry no blood donanation available! in the receive page
+If the database is empty, show sorry no donation available! in the receive page
 Disable donate button according the threshold(3 Months)
 """
 
@@ -9,6 +9,8 @@ from flask import Flask, request, jsonify, render_template, url_for, redirect
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine, MetaData
 from sqlalchemy.orm import sessionmaker
+from datetime import datetime
+
 
 file_name = 'BloodDonation.db'
 app = Flask(__name__)
@@ -22,8 +24,8 @@ class BloodDonation(db.Model):
     blood_groups = db.Column(db.String)
     city = db.Column(db.String)
     phone_no = db.Column(db.String)
-    donation_count = db.Column(db.Integer)
-    latest_donation = db.Column(db.Integer)
+    #donation_count = db.Column(db.Integer)
+    #latest_donation = db.Column(db.Integer)
 
 @app.route('/')
 def home():
@@ -42,6 +44,12 @@ def blood_donation():
         for field in data_fields:
             data_dict[field] = request.form.get(field).lower()
 
+        for value in data_dict.values():
+           if value == "":
+                return "Please enter all the details." 
+                  
+
+
         blood_donation = BloodDonation(**data_dict)
         db.session.add(blood_donation)
         db.session.commit()
@@ -51,11 +59,25 @@ def blood_donation():
 @app.route('/blood_receive', methods=['GET','POST'])
 def blood_receive():
     if request.method == 'GET':
+
+       # blood_donation_id = request.args.get('id')
+        #donation_id = BloodDonation.query.get(blood_donation_id)
+        #if donation_id == "":
+           # return "Sorry, No donations available!!!"
+        
+
         blood_groups = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']
         return render_template('find_blood.html', blood_groups = blood_groups)
+
     else:
         blood_groups = request.form.get('blood_groups').lower()
         city = request.form.get('city').lower()
+
+        if city == "":
+            return "Please enter all the details." 
+        elif city != 'city':
+            return "Your city is not available"
+
         print(city, blood_groups)
         result = BloodDonation.query.\
             filter_by(blood_groups = blood_groups).\
