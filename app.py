@@ -1,7 +1,7 @@
 """
 TODO 
-Add a home button for every page
-If the database is empty, show sorry no donation available! in the receive page
+Add flash messagges
+Add Blood receiver table
 Disable donate button according the threshold(3 Months)
 """
 
@@ -23,13 +23,17 @@ class BloodDonation(db.Model):
     age = db.Column(db.Integer)
     blood_groups = db.Column(db.String)
     city = db.Column(db.String)
-    phone_no = db.Column(db.String)
+    phone_no = db.Column(db.String, unique= True)
     #donation_count = db.Column(db.Integer)
     #latest_donation = db.Column(db.Integer)
 
 @app.route('/')
 def home():
     return render_template('home.html')
+
+@app.route('/empty_db')
+def no_donations():
+    return render_template('empty_db.html')
 
 @app.route('/blood_donation', methods=['GET','POST'])
 def blood_donation():
@@ -60,11 +64,10 @@ def blood_donation():
 def blood_receive():
     if request.method == 'GET':
 
-       # blood_donation_id = request.args.get('id')
-        #donation_id = BloodDonation.query.get(blood_donation_id)
-        #if donation_id == "":
-           # return "Sorry, No donations available!!!"
-        
+        all_donations = BloodDonation.query.all()
+        if all_donations == []:
+            print('Sorry no donations available')
+            return render_template('empty_db.html')
 
         blood_groups = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']
         return render_template('find_blood.html', blood_groups = blood_groups)
@@ -75,7 +78,7 @@ def blood_receive():
 
         if city == "":
             return "Please enter all the details." 
-        elif city != 'city':
+        elif city != city:
             return "Your city is not available"
 
         print(city, blood_groups)
@@ -83,6 +86,7 @@ def blood_receive():
             filter_by(blood_groups = blood_groups).\
             filter_by(city = city).\
                 all()
+
 
     print(result)
     return render_template('results.html', blood_donations=result)
