@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container">
-    <h1>Find Blood Donation Page</h1>
+    <div class="jumbotron">
+        <h1>Find Blood Donation Page</h1>
+    </div>
+
     <form action="/blood_receive" method='post', class='ui form' style='width: 50%;'>
         <br>
         blood groups :<br>
@@ -16,6 +19,11 @@
         <input type="text" name="city" required>
         <br><br>
         <input type="submit" value="Submit">
-    </form>     
+    </form>
+    <div>
+        <a href="/">
+         <h3 class="text-center">Back</h3>
+        </a>
+    </div>      
 </div>
 {% endblock %}
