@@ -69,6 +69,7 @@ def blood_receive():
             print('Sorry no donations available')
             return render_template('empty_db.html')
 
+
         blood_groups = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']
         return render_template('find_blood.html', blood_groups = blood_groups)
 
@@ -78,9 +79,8 @@ def blood_receive():
 
         if city == "":
             return "Please enter all the details." 
-        elif city != city:
-            return "Your city is not available"
 
+   
         print(city, blood_groups)
         result = BloodDonation.query.\
             filter_by(blood_groups = blood_groups).\
