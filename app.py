@@ -87,6 +87,11 @@ def blood_receive():
             filter_by(city = city).\
                 all()
 
+        if result == []:
+            print('Sorry no donations available')
+            return render_template('empty_db.html')
+        else:
+            return render_template('results.html', blood_donations=result)
 
     print(result)
     return render_template('results.html', blood_donations=result)
@@ -100,6 +105,10 @@ def take_donation():
     db.session.commit()
     return redirect(url_for('home'))
 
+@app.route('/all_donations_db', methods=['GET'] )
+def all_donations_db():
+    all_donations = BloodDonation.query.all()
+    return render_template('results.html', blood_donations=all_donations)
 
 if __name__ == '__main__':
     app.run(debug=True)

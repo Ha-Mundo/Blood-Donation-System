@@ -1,11 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="container">
-    <div class="jumbotron">
-        <h1>Find Blood Donation Page</h1>
+<div class="container" style='width: 50%; margin: auto;'>
+    <div class="jumbotron text-center">
+        <h2>Find Blood Donation Page</h2>
     </div>
+    <a href="/all_donations_db">
+        <h3 class="text-right">Check database</h3>
+    </a>
 
-    <form action="/blood_receive" method='post', class='ui form' style='width: 50%;'>
+    <form action="/blood_receive" method='post', class='ui form' >
         <br>
         blood groups :<br>
         <select name="blood_groups" method="GET" action="/" checked>
@@ -22,7 +25,7 @@
     </form>
     <div>
         <a href="/">
-         <h3 class="text-center">Back</h3>
+         <h3 class="text-right">Back</h3>
         </a>
     </div>      
 </div>
