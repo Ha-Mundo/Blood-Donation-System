@@ -1,7 +1,6 @@
 """
 TODO 
 Add flash messagges
-Add Blood receiver table
 Disable donate button according the threshold(3 Months)
 """
 
@@ -9,8 +8,8 @@ from flask import Flask, request, jsonify, render_template, url_for, redirect
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine, MetaData
 from sqlalchemy.orm import sessionmaker
-from datetime import datetime
-
+import datetime
+from time_limit import threshold_time
 
 file_name = 'BloodDonation.db'
 app = Flask(__name__)
@@ -23,9 +22,18 @@ class BloodDonation(db.Model):
     age = db.Column(db.Integer)
     blood_groups = db.Column(db.String)
     city = db.Column(db.String)
-    phone_no = db.Column(db.String, unique= True)
-    #donation_count = db.Column(db.Integer)
-    #latest_donation = db.Column(db.Integer)
+    phone_no = db.Column(db.String, unique=True)
+    latest_donation = db.Column(db.Integer)
+    next_donation = db.Column(db.Integer)
+
+    def __init__(self, name, age, blood_groups, city, phone_no, latest_donation, next_donation):
+        self.name = name
+        self.age = age
+        self.blood_groups = blood_groups
+        self.city = city
+        self.phone_no = phone_no
+        self.latest_donation = latest_donation
+        self.next_donation = next_donation
 
 @app.route('/')
 def home():
@@ -41,9 +49,15 @@ def blood_donation():
         blood_groups = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']
         return render_template('donate.html', blood_groups = blood_groups)
     else:
+        donation_day = datetime.datetime.now()
+        next_donation_date = threshold_time()
+
         data_fields = ['name','age','blood_groups','city','phone_no']
     
         data_dict = {}
+        data_dict['latest_donation'] = donation_day
+        data_dict['next_donation'] = next_donation_date
+        
     
         for field in data_fields:
             data_dict[field] = request.form.get(field).lower()
@@ -53,13 +67,14 @@ def blood_donation():
                 return "Please enter all the details." 
                   
 
+        if db.session.query(BloodDonation).filter(BloodDonation.phone_no == data_dict['phone_no'] and BloodDonation.next_donation >= data_dict['latest_donation']).count() == 0:
+           blood_donation = BloodDonation(**data_dict)
+           db.session.add(blood_donation)
+           db.session.commit()
+           return redirect(url_for('home'))
 
-        blood_donation = BloodDonation(**data_dict)
-        db.session.add(blood_donation)
-        db.session.commit()
+        return "Donation forbidden!!!"
 
-        return redirect(url_for('home'))
-    
 @app.route('/blood_receive', methods=['GET','POST'])
 def blood_receive():
     if request.method == 'GET':
