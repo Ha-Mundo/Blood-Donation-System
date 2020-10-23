@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <form action="/home" method='post', class='ui form' style='width: 100%;'>
+        <html>
+            <body>
+                <div class="container text-center">
+                    <div class="jumbotron">
+                        <h2 class="display-4">Home page</h2>
+                    </div>
+                    <a href='/blood_donation'> 
+                        <h3>blood donation</h3>
+                    </a>
+                    <a href='/blood_receive'> 
+                        <h3>blood receive</h3>
+                    </a>
+                </div>
+
+                
+            </body>
+        </html>
+    </form>     
+</div>
+{% endblock %}
