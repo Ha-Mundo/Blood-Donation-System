@@ -9,26 +9,27 @@ print(donation_day)
 
 threshold = datetime.timedelta(seconds=60) 
 
-#print(threshold)
+print(threshold)
 
 print(donation_day + threshold)
 
-#bday = datetime.date()
 
-#till_bday = bday - tday
-#print(till_bday.days)
-
-def threshold_time():
-    donation_day = datetime.datetime.now()
+def threshold_time(donation_day):
+    #donation_day = datetime.datetime.now()
     threshold = datetime.timedelta(seconds=60)
     till_day =  donation_day + threshold
-    print(till_day)
+    #print(till_day)
     return till_day
-    #if till_day == datetime.date.today():
-        #return True
-    #else:
-        #print('Donation forbidden!')
 
-#donation_permit(donation_day)
+condition = threshold_time(donation_day)  
+
+def timer(condition, donation_day):   
+    if condition <= donation_day:
+       return True
+    else:
+        return False
+
+t = timer(condition, donation_day)
+print(t)
 
 

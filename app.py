@@ -1,15 +1,16 @@
 """
 TODO 
 Add flash messagges
+Add donation counter
 Disable donate button according the threshold(3 Months)
 """
 
-from flask import Flask, request, jsonify, render_template, url_for, redirect
+from flask import Flask, request, jsonify, render_template, url_for, redirect, flash
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine, MetaData
 from sqlalchemy.orm import sessionmaker
 import datetime
-from time_limit import threshold_time
+from time_limit import threshold_time, timer
 
 file_name = 'BloodDonation.db'
 app = Flask(__name__)
@@ -18,15 +19,17 @@ db = SQLAlchemy(app)
 
 class BloodDonation(db.Model):
     id = db.Column(db.Integer, primary_key = True)
-    name = db.Column(db.String)
-    age = db.Column(db.Integer)
-    blood_groups = db.Column(db.String)
-    city = db.Column(db.String)
-    phone_no = db.Column(db.String, unique=True)
-    latest_donation = db.Column(db.Integer)
-    next_donation = db.Column(db.Integer)
+    name = db.Column(db.String, nullable=False)
+    age = db.Column(db.Integer, nullable=False)
+    blood_groups = db.Column(db.String, nullable=False)
+    city = db.Column(db.String, nullable=False)
+    phone_no = db.Column(db.String, nullable=False)
+    latest_donation = db.Column(db.DateTime, nullable=False)
+    next_donation = db.Column(db.DateTime)
+    donation_counter = db.Column(db.Integer, default=1)
+    #timer = db.Column(db.Boolean)
 
-    def __init__(self, name, age, blood_groups, city, phone_no, latest_donation, next_donation):
+    def __init__(self, name, age, blood_groups, city, phone_no, latest_donation, next_donation, donation_counter):
         self.name = name
         self.age = age
         self.blood_groups = blood_groups
@@ -34,6 +37,7 @@ class BloodDonation(db.Model):
         self.phone_no = phone_no
         self.latest_donation = latest_donation
         self.next_donation = next_donation
+        self.donation_counter = donation_counter
 
 @app.route('/')
 def home():
@@ -50,14 +54,17 @@ def blood_donation():
         return render_template('donate.html', blood_groups = blood_groups)
     else:
         donation_day = datetime.datetime.now()
-        next_donation_date = threshold_time()
+        next_donation_date = threshold_time(donation_day)
+       
 
         data_fields = ['name','age','blood_groups','city','phone_no']
     
         data_dict = {}
         data_dict['latest_donation'] = donation_day
         data_dict['next_donation'] = next_donation_date
+        data_dict['donation_counter'] = 1                
         
+        counter = data_dict['donation_counter']
     
         for field in data_fields:
             data_dict[field] = request.form.get(field).lower()
@@ -67,11 +74,16 @@ def blood_donation():
                 return "Please enter all the details." 
                   
 
-        if db.session.query(BloodDonation).filter(BloodDonation.phone_no == data_dict['phone_no'] and BloodDonation.next_donation >= data_dict['latest_donation']).count() == 0:
-           blood_donation = BloodDonation(**data_dict)
-           db.session.add(blood_donation)
-           db.session.commit()
-           return redirect(url_for('home'))
+        if db.session.query(BloodDonation).filter(BloodDonation.phone_no == data_dict['phone_no']) and \
+            db.session.query(BloodDonation).filter(BloodDonation.next_donation <= data_dict['latest_donation']):
+            #donation_number = db.session.query(BloodDonation.donation_counter)
+            #total_donation = donation_number + counter
+            #data_dict['donation_counter'] = total_donation
+            blood_donation = BloodDonation(**data_dict)
+            db.session.add(blood_donation)
+            db.session.commit()
+            
+            return redirect(url_for('home'))   
 
         return "Donation forbidden!!!"
 
