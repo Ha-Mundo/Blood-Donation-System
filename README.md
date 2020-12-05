@@ -1,5 +1,4 @@
 # Blood-Donation-System
-Here the newest version: https://bd-system.herokuapp.com/
  
 I made this social app for all the blood donor that want to help all people who need a urgent blood transfusion.
 
@@ -16,5 +15,7 @@ Requirements:
                                                                                                     --> exit()
                                                                                                     
 4- Run the application with the comand python app.py
+
+# Here the newest version deployed on Heroku: https://bd-system.herokuapp.com/
 
 
