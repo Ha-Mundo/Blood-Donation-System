@@ -1,6 +1,6 @@
 # Blood-Donation-System
  
-I made this social app for all the blood donor that want to help all people who need a urgent blood transfusion.
+I made this social app for all the blood donor that want to help all people who need an urgent blood transfusion.
 No authentication is required since this web app use the email address as user identifier.
 
 Requirements:
