@@ -1,6 +1,7 @@
 # Blood-Donation-System
  
 I made this social app for all the blood donor that want to help all people who need a urgent blood transfusion.
+No authentication is required since this web app use the email address as user identifier.
 
 Requirements:
 
@@ -18,5 +19,16 @@ Requirements:
 
 # Here the newest version deployed on Heroku: 
 # https://bd-system.herokuapp.com/
+
+New features:
+
+-Added 3 months threshold for every blood donation
+
+-Added 7 days threshold for every blood request
+
+-Added flash messages
+
+
+
 
 
