@@ -1,32 +1,36 @@
 # Blood-Donation-System
- 
-I made this social app for all the blood donor that want to help all people who need an urgent blood transfusion.
-No authentication is required since this web app use the email address as user identifier.
 
-Requirements:
+I made this social app for all the blood donor that want to help all people who need an urgent blood transfusion. No authentication is required since this web app use the email address as user identifier.
 
-0- Install pip from the terminal: pip3 intstall pipenv
+## Requirements:
 
-1- Create a virtual enviroment in the terminal with pipenv shell 
+0- Install pipenv from the terminal `pip3 intstall pipenv`
 
-2- Install flask, Flask-SQLAlchemy 
+1- Create a virtual enviroment in the terminal with `pipenv shell`
 
-3- Open the python shell from the terminal with the command python and from there run the commands: --> from app import db 
-                                                                                                    --> db.create_all() 
-                                                                                                    --> exit()
-                                                                                                    
-4- Run the application with the comand python app.py
+2- Install all the dependencies and packages `pip install -r requirements.txt`
 
-# Here the newest version deployed on Heroku: 
-# https://bd-system.herokuapp.com/
+3- Open the python shell from the terminal with the command `python`
 
-New features:
+4- From the python shell run `from app import db` to import the Blood Donation table
 
--Added 3 months threshold for every blood donation
+5- To create the database run `db.create_all()`
 
--Added 7 days threshold for every blood request
+6- Run `exit()` to quit from the python shell
 
--Added flash messages
+7- Run the application with the command `python app.py` or `flask run`
+
+### Here the newest version deployed on Railway✨
+
+https://blood-donation-system.up.railway.app/
+
+## New features:
+
+- Added 3 months threshold for every blood donation
+
+- Added 7 days threshold for every blood request
+
+- Added flash messages
 
 
 
