@@ -20,19 +20,14 @@ I made this social app for all the blood donor that want to help all people who 
 
 7- Run the application with the command `python app.py` or `flask run`
 
-### Here the newest version deployed on Railway✨
+## Here the newest version deployed on Railway✨
 
-https://blood-donation-system.up.railway.app/
+### https://blood-donation-system.up.railway.app/
 
-## New features:
+### New features:
 
 - Added 3 months threshold for every blood donation
 
 - Added 7 days threshold for every blood request
 
 - Added flash messages
-
-
-
-
-
