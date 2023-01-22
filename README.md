@@ -4,9 +4,9 @@ I made this social app for all the blood donor that want to help all people who 
 
 ## Requirements:
 
-0- Install pipenv from the terminal `pip3 intstall pipenv`
+0- Install pipenv from the terminal `pip3 install pipenv`
 
-1- Create a virtual enviroment in the terminal with `pipenv shell`
+1- Create a virtual environment in the terminal with `pipenv shell`
 
 2- Install all the dependencies and packages `pip install -r requirements.txt`
 
@@ -20,9 +20,9 @@ I made this social app for all the blood donor that want to help all people who 
 
 7- Run the application with the command `python app.py` or `flask run`
 
-## Here the newest version deployed on Railway✨
+## Here the newest version deployed on Render✨
 
-### https://blood-donation-system.up.railway.app/
+### https://blood-donation-system.onrender.com/
 
 ### New features:
 
