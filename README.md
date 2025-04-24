@@ -23,6 +23,7 @@ I made this social app for all the blood donor that want to help all people who 
 ## Here the newest version deployed on Render✨
 
 ### https://blood-donation-system.onrender.com/
+*Please allow a couple of minutes for the app to load due to Render's free tier startup time*
 
 ### New features:
 
